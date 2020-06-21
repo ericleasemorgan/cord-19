@@ -57,15 +57,12 @@ printf $QUERY | sqlite3 $DB | while read -a RESULTS; do
 
 	# extract the body; jq++
 	BODY=$( cat $FILE | jq --raw-output ".body_text[].text" )
-	BODY=$( echo -e $BODY | sed s"/$/\n/g" )
 
 	# bibliographics
 	BIBENTRIES=$( cat $FILE | jq --raw-output '.bib_entries[].title' )
-	BIBENTRIES=$( echo -e $BIBENTRIES | sed s"/$/\n/g" )
 
 	# backmatter
 	BACKMATTER=$( cat $FILE | jq --raw-output '.back_matter[].text' )
-	BACKMATTER=$( echo -e $BACKMATTER | sed s"/$/\n/g" )
 
 	# debug
 	echo -e "          key: $KEY"         >&2
